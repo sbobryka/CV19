@@ -5,19 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CV19"
         xmlns:vm="clr-namespace:CV19.ViewModels"
+        xmlns:fa="http://schemas.fontawesome.com/icons/"
         mc:Ignorable="d"
         Title="{Binding Path=Title}" Height="450" Width="800"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <fa:FontAwesome Icon="Regular_FileAlt" x:Key="Regular_FileAlt" Foreground="Blue"/>
+        <fa:FontAwesome Icon="Regular_FolderOpen" x:Key="Regular_FolderOpen" Foreground="Blue"/>
+        <fa:FontAwesome Icon="Solid_DoorOpen" x:Key="Solid_DoorOpen" Foreground="Blue"/>
+        <fa:FontAwesome Icon="Regular_QuestionCircle" x:Key="Regular_QuestionCircle" Foreground="Green"/>
+    </Window.Resources>
     <Window.DataContext>
         <vm:ViewModelMainWindow/>
     </Window.DataContext>
+    <Window.InputBindings>
+        <KeyBinding Modifiers="Alt" Key="Q" Command="{Binding Path=CloseApplicationCommand}"/>
+    </Window.InputBindings>
     <DockPanel>
         <Menu DockPanel.Dock="Top" Padding="5">
-            <MenuItem Header="Файл">
-                <MenuItem Header="Открыть"/>
-                <MenuItem Header="Выход" Command="{Binding Path=CloseApplicationCommand}"/>
+            <MenuItem Header="Файл" Icon="{StaticResource Regular_FileAlt}">
+                <MenuItem Header="Открыть" Icon="{StaticResource Regular_FolderOpen}"/>
+                <MenuItem Header="Выход" Icon="{StaticResource Solid_DoorOpen}" InputGestureText="Alt+Q" Command="{Binding Path=CloseApplicationCommand}"/>
             </MenuItem>
-            <MenuItem Header="Справка">
+            <MenuItem Header="Справка" Icon="{StaticResource Regular_QuestionCircle}">
                 <MenuItem Header="Помощь"/>
                 <MenuItem Header="О программе"/>
             </MenuItem>
