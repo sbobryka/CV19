@@ -13,10 +13,22 @@ namespace CV19.ViewModels
         /// <summary>
         /// Заголовок окна
         /// </summary>
-        public string Title 
-        { 
+        public string Title
+        {
             get => _Title;
             set => Set(ref _Title, value);
+        }
+
+        #endregion
+
+        #region Статус
+
+        private string _Status = "Готов";
+
+        public string Status
+        {
+            get => _Status;
+            set => Set(ref _Status, value);
         }
 
         #endregion

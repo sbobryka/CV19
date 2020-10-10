@@ -12,7 +12,7 @@
         <vm:ViewModelMainWindow/>
     </Window.DataContext>
     <DockPanel>
-        <Menu DockPanel.Dock="Top">
+        <Menu DockPanel.Dock="Top" Padding="5">
             <MenuItem Header="Файл">
                 <MenuItem Header="Открыть"/>
                 <MenuItem Header="Выход"/>
@@ -22,13 +22,13 @@
                 <MenuItem Header="О программе"/>
             </MenuItem>
         </Menu>
-        <StatusBar DockPanel.Dock="Bottom">
+        <StatusBar DockPanel.Dock="Bottom" Padding="5">
             <StatusBarItem HorizontalAlignment="Right">
-                <TextBlock Text="Состояние"/>
+                <TextBlock Text="{Binding Path=Status}"/>
             </StatusBarItem>
         </StatusBar>
         <Grid>
-            
+            <!--<TextBox Height="20" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Text="{Binding Path=Title, UpdateSourceTrigger=PropertyChanged}"/>-->
         </Grid>
     </DockPanel>
 </Window>
