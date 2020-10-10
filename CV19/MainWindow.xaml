@@ -15,7 +15,7 @@
         <Menu DockPanel.Dock="Top" Padding="5">
             <MenuItem Header="Файл">
                 <MenuItem Header="Открыть"/>
-                <MenuItem Header="Выход"/>
+                <MenuItem Header="Выход" Command="{Binding Path=CloseApplicationCommand}"/>
             </MenuItem>
             <MenuItem Header="Справка">
                 <MenuItem Header="Помощь"/>
