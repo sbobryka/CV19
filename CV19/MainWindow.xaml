@@ -29,6 +29,7 @@
         </StatusBar>
         <Grid>
             <!--<TextBox Height="20" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Text="{Binding Path=Title, UpdateSourceTrigger=PropertyChanged}"/>-->
+            <Button Width="120" Height="30" Content="Установить статус" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Command="{Binding Path=SetStatusCommand}" CommandParameter="Работаю"/>
         </Grid>
     </DockPanel>
 </Window>

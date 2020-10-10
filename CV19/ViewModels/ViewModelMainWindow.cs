@@ -38,6 +38,9 @@ namespace CV19.ViewModels
 
         #region Команды
 
+        /// <summary>
+        /// Завершает работу приложения
+        /// </summary>
         public ICommand CloseApplicationCommand { get; }
 
         private void OnCloseApplicationCommandExecuted(object property)
@@ -47,11 +50,24 @@ namespace CV19.ViewModels
 
         private bool CanCloseApplicationCommandExecute(object property) => true;
 
+        /// <summary>
+        /// Устанавливает статус
+        /// </summary>
+        public ICommand SetStatusCommand { get; }
+
+        private void OnSetStatusCommandExecuted(object property)
+        {
+            Status = property.ToString();
+        }
+
+        private bool CanSetStatusCommandExecute(object property) => true;
+
         #endregion
 
         public ViewModelMainWindow()
         {
             CloseApplicationCommand = new RelayCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
+            SetStatusCommand = new RelayCommand(OnSetStatusCommandExecuted, CanSetStatusCommandExecute);
         }
     }
 }
