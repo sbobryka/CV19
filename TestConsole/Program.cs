@@ -14,11 +14,9 @@ namespace TestConsole
 
         private static async Task<Stream> GetDataStream()
         {
-            using (HttpClient client = new HttpClient())
-            {
-                var response = await client.GetAsync(dataUrl, HttpCompletionOption.ResponseHeadersRead);
-                return await response.Content.ReadAsStreamAsync();
-            }
+            using var client = new HttpClient();
+            var response = await client.GetAsync(dataUrl, HttpCompletionOption.ResponseHeadersRead);
+            return await response.Content.ReadAsStreamAsync();
         }
 
         private static IEnumerable<string> GetDataLines()
@@ -30,7 +28,7 @@ namespace TestConsole
             {
                 var line = dataReader.ReadLine();
                 if (string.IsNullOrWhiteSpace(line)) continue;
-                yield return line;
+                yield return line.Replace(", ", " ");
             }
         }
 
@@ -40,6 +38,20 @@ namespace TestConsole
             .Skip(4)
             .Select(s => DateTime.Parse(s, CultureInfo.InvariantCulture))
             .ToArray();
+
+        private static IEnumerable<(string Country, string Province, int[] Counts)> GetData()
+        {
+            IEnumerable<string[]> lines = GetDataLines().Skip(1).Select(l => l.Split(','));
+
+            foreach (string[] line in lines)
+            {
+                string province = line[0].Trim();
+                string country = line[1].Trim(' ', '"');
+                int[] counts = line.Skip(4).Select(int.Parse).ToArray();
+
+                yield return (country, province, counts);
+            }
+        }
 
         static void Main(string[] args)
         {
@@ -54,8 +66,12 @@ namespace TestConsole
             //foreach (var line in GetDataLines())
             //    Console.WriteLine(line);
 
-            var dates = GetDates();
-            Console.WriteLine(string.Join("\r\n", dates));
+            //var dates = GetDates();
+            //Console.WriteLine(string.Join("\n", dates));
+
+            var russiaData = GetData().First(v => v.Country.Equals("Russia", StringComparison.OrdinalIgnoreCase));
+            Console.WriteLine(string.Join("\n", GetDates()
+                .Zip(russiaData.Counts, (date, count) => $"{date:dd:MM:yyyy} - {count}")));
         }
     }
 }
