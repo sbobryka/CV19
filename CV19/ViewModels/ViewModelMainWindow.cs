@@ -1,4 +1,5 @@
 ﻿using CV19.Comands;
+using CV19.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -36,6 +37,18 @@ namespace CV19.ViewModels
 
         #endregion
 
+        #region Набор данных для визуализации графика
+
+        private IEnumerable<DataPoint> dataPoints;
+
+        public IEnumerable<DataPoint> DataPoints
+        {
+            get => dataPoints;
+            set => Set(ref dataPoints, value);
+        }
+
+        #endregion
+
         #region Команды
 
         /// <summary>
@@ -68,6 +81,16 @@ namespace CV19.ViewModels
         {
             CloseApplicationCommand = new RelayCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
             SetStatusCommand = new RelayCommand(OnSetStatusCommandExecuted, CanSetStatusCommandExecute);
+
+            // Заполнение тестовыми данными
+            List<DataPoint> testDataPoints = new List<DataPoint>((int)(360 / 0.1));
+            const double TO_RAD = Math.PI / 180;
+            for (double x = 0; x < 360; x += 0.1)
+            {
+                double y = Math.Sin(x * TO_RAD);
+                testDataPoints.Add(new DataPoint(x, y));
+            }
+            DataPoints = testDataPoints;
         }
     }
 }
