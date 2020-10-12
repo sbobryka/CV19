@@ -67,10 +67,10 @@ namespace TestConsole
             //    Console.WriteLine(line);
 
             //var dates = GetDates();
-            //Console.WriteLine(string.Join("\n", dates));
+            //Console.WriteLine(string.Join("\r\n", dates));
 
             var russiaData = GetData().First(v => v.Country.Equals("Russia", StringComparison.OrdinalIgnoreCase));
-            Console.WriteLine(string.Join("\n", GetDates()
+            Console.WriteLine(string.Join("\r\n", GetDates()
                 .Zip(russiaData.Counts, (date, count) => $"{date:dd:MM:yyyy} - {count}")));
         }
     }
