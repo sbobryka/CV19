@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:CV19"
         xmlns:vm="clr-namespace:CV19.ViewModels"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
+        xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
         Title="{Binding Path=Title}" Height="450" Width="800"
         WindowStartupLocation="CenterScreen">
@@ -39,7 +40,14 @@
         </StatusBar>
         <Grid>
             <!--<TextBox Height="20" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Text="{Binding Path=Title, UpdateSourceTrigger=PropertyChanged}"/>-->
-            <Button Width="120" Height="30" Content="Установить статус" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Command="{Binding Path=SetStatusCommand}" CommandParameter="Работаю"/>
+            <!--<Button Width="120" Height="30" Content="Установить статус" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Command="{Binding Path=SetStatusCommand}" CommandParameter="Работаю"/>-->
+            <oxy:Plot>
+                <oxy:Plot.Axes>
+                    <oxy:LinearAxis Position="Left"/>
+                    <oxy:LinearAxis Position="Bottom"/>
+                </oxy:Plot.Axes>
+                <oxy:LineSeries Color="Blue" ItemsSource="{Binding DataPoints}" DataFieldX="XValue" DataFieldY="YValue"/>
+            </oxy:Plot>
         </Grid>
     </DockPanel>
 </Window>
