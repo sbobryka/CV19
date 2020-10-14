@@ -38,16 +38,34 @@
                 <TextBlock Text="{Binding Path=Status}"/>
             </StatusBarItem>
         </StatusBar>
-        <Grid>
-            <!--<TextBox Height="20" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Text="{Binding Path=Title, UpdateSourceTrigger=PropertyChanged}"/>-->
-            <!--<Button Width="120" Height="30" Content="Установить статус" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Command="{Binding Path=SetStatusCommand}" CommandParameter="Работаю"/>-->
-            <oxy:Plot Title="Пример графика">
-                <oxy:Plot.Axes>
-                    <oxy:LinearAxis Position="Left"/>
-                    <oxy:LinearAxis Position="Bottom"/>
-                </oxy:Plot.Axes>
-                <oxy:LineSeries Color="Blue" ItemsSource="{Binding DataPoints}" DataFieldX="XValue" DataFieldY="YValue"/>
-            </oxy:Plot>
-        </Grid>
+        <TabControl>
+            <TabItem Header="График">
+                <Grid>
+                    <!--<TextBox Height="20" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Text="{Binding Path=Title, UpdateSourceTrigger=PropertyChanged}"/>-->
+                    <!--<Button Width="120" Height="30" Content="Установить статус" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Command="{Binding Path=SetStatusCommand}" CommandParameter="Работаю"/>-->
+                    <oxy:Plot Title="Пример графика">
+                        <oxy:Plot.Axes>
+                            <oxy:LinearAxis Position="Left"/>
+                            <oxy:LinearAxis Position="Bottom"/>
+                        </oxy:Plot.Axes>
+                        <oxy:LineSeries Color="Blue" ItemsSource="{Binding DataPoints}" DataFieldX="XValue" DataFieldY="YValue"/>
+                    </oxy:Plot>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Студенты">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Grid.Column="0" Header="Группы">
+                        <ListBox ItemsSource="{Binding Path=Groups}" DisplayMemberPath="Name"/>
+                    </GroupBox>
+                    <GroupBox Grid.Column="1" Header="Студенты">
+                        <DataGrid/>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </DockPanel>
 </Window>
