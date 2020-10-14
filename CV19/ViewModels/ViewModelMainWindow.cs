@@ -1,7 +1,10 @@
 ﻿using CV19.Comands;
 using CV19.Models;
+using CV19.Models.Decanat;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
@@ -49,6 +52,12 @@ namespace CV19.ViewModels
 
         #endregion
 
+        #region Группы и студенты
+
+        public ObservableCollection<Group> Groups { get; }
+
+        #endregion
+
         #region Команды
 
         /// <summary>
@@ -91,6 +100,24 @@ namespace CV19.ViewModels
                 testDataPoints.Add(new DataPoint(x, y));
             }
             DataPoints = testDataPoints;
+
+            // Заполнение тестовыми данным группы студентов
+            int studentIndex = 1;
+            var students = Enumerable.Range(1, 10).Select(s => new Student
+            {
+                Name = $"Name {studentIndex}",
+                Surname = $"Surname {studentIndex}",
+                Patronymic = $"Patronymic {studentIndex++}",
+                Birthday = DateTime.Now,
+                Rating = 0
+            });
+            var groups = Enumerable.Range(1, 20).Select(g => new Group
+            {
+                Name = $"Группа {g}",
+                Students = new ObservableCollection<Student>(students)
+            });
+
+            Groups = new ObservableCollection<Group>(groups);
         }
     }
 }
