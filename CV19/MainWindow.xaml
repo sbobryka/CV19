@@ -39,6 +39,29 @@
             </StatusBarItem>
         </StatusBar>
         <TabControl>
+            <TabItem Header="Студенты">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Grid.Column="0" Header="Группы" Padding="5">
+                        <ListBox ItemsSource="{Binding Path=Groups}" DisplayMemberPath="Name" SelectedItem="{Binding Path=SelectedGroup}" SelectedIndex="0"/>
+                    </GroupBox>
+                    <GroupBox Padding="5" Grid.Column="1" Header="{Binding Path=SelectedGroup.Name, FallbackValue=Студенты, TargetNullValue='Группа не выбрана'}">
+                        <DataGrid ItemsSource="{Binding Path=SelectedGroup.Students}" AutoGenerateColumns="False" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <!--<DataGridTextColumn Header="Группа" Binding="{Binding DataContext.SelectedGroup.Name, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>-->
+                                <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=Surname}"/>
+                                <DataGridTextColumn Header="Имя" Binding="{Binding Path=Name}"/>
+                                <DataGridTextColumn Header="Отчество" Binding="{Binding Path=Patronymic}"/>
+                                <DataGridTextColumn Header="Рейтинг" Binding="{Binding Path=Rating}"/>
+                                <DataGridTextColumn Header="Дата рождения" Binding="{Binding Path=Birthday, StringFormat=dd.MM.yyy}" Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
             <TabItem Header="График">
                 <Grid>
                     <!--<TextBox Height="20" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Text="{Binding Path=Title, UpdateSourceTrigger=PropertyChanged}"/>-->
@@ -50,20 +73,6 @@
                         </oxy:Plot.Axes>
                         <oxy:LineSeries Color="Blue" ItemsSource="{Binding DataPoints}" DataFieldX="XValue" DataFieldY="YValue"/>
                     </oxy:Plot>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Студенты">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="250"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <GroupBox Grid.Column="0" Header="Группы">
-                        <ListBox ItemsSource="{Binding Path=Groups}" DisplayMemberPath="Name"/>
-                    </GroupBox>
-                    <GroupBox Grid.Column="1" Header="Студенты">
-                        <DataGrid/>
-                    </GroupBox>
                 </Grid>
             </TabItem>
         </TabControl>
