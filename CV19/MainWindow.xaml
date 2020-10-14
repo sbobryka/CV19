@@ -49,14 +49,15 @@
                         <ListBox ItemsSource="{Binding Path=Groups}" DisplayMemberPath="Name" SelectedItem="{Binding Path=SelectedGroup}" SelectedIndex="0"/>
                     </GroupBox>
                     <GroupBox Padding="5" Grid.Column="1" Header="{Binding Path=SelectedGroup.Name, FallbackValue=Студенты, TargetNullValue='Группа не выбрана'}">
-                        <DataGrid ItemsSource="{Binding Path=SelectedGroup.Students}" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid ItemsSource="{Binding Path=SelectedGroup.Students}" AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="Vertical" VerticalGridLinesBrush="LightGray" AlternatingRowBackground="AliceBlue" SelectionMode="Single" HeadersVisibility="Column">
                             <DataGrid.Columns>
                                 <!--<DataGridTextColumn Header="Группа" Binding="{Binding DataContext.SelectedGroup.Name, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>-->
                                 <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=Surname}"/>
                                 <DataGridTextColumn Header="Имя" Binding="{Binding Path=Name}"/>
                                 <DataGridTextColumn Header="Отчество" Binding="{Binding Path=Patronymic}"/>
                                 <DataGridTextColumn Header="Рейтинг" Binding="{Binding Path=Rating}"/>
-                                <DataGridTextColumn Header="Дата рождения" Binding="{Binding Path=Birthday, StringFormat=dd.MM.yyy}" Width="*"/>
+                                <DataGridTextColumn Header="Дата рождения" Binding="{Binding Path=Birthday, StringFormat=dd.MM.yyy}"/>
+                                <DataGridTextColumn Header="Заметки" Binding="{Binding Description}" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </GroupBox>
