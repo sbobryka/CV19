@@ -94,6 +94,18 @@ namespace CV19.ViewModels
 
         #endregion
 
+        #region Разнотипный набор данных
+
+        public object[] CompositeCollection { get; }
+
+        private object _SelectedCompositeValue;
+
+        public object SelectedCompositeValue { get => _SelectedCompositeValue; set => Set(ref _SelectedCompositeValue, value); }
+
+        #endregion
+
+        #region Конструктор
+
         public ViewModelMainWindow()
         {
             CloseApplicationCommand = new RelayCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
@@ -113,19 +125,30 @@ namespace CV19.ViewModels
             int studentIndex = 1;
             var students = Enumerable.Range(1, 10).Select(s => new Student
             {
-                Name = $"Name {studentIndex}",
-                Surname = $"Surname {studentIndex}",
-                Patronymic = $"Patronymic {studentIndex++}",
+                Name = $"Имя {studentIndex}",
+                Surname = $"Фамилия {studentIndex}",
+                Patronymic = $"Отчество {studentIndex++}",
                 Birthday = DateTime.Now,
                 Rating = 0
             });
             var groups = Enumerable.Range(1, 20).Select(g => new Group
             {
                 Name = $"Группа {g}",
+                Description = $"Описание {g}",
                 Students = new ObservableCollection<Student>(students)
             });
 
             Groups = new ObservableCollection<Group>(groups);
+
+            // Заполнение разнотипного набора данными
+            List<object> list = new List<object>();
+            list.Add("Какой-то текст");
+            list.Add(32);
+            list.Add(groups.FirstOrDefault());
+            list.Add(students.FirstOrDefault());
+            CompositeCollection = list.ToArray();
         }
+
+        #endregion
     }
 }

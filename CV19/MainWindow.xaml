@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:CV19"
         xmlns:vm="clr-namespace:CV19.ViewModels"
         xmlns:dec="clr-namespace:CV19.Models.Decanat"
+        xmlns:sys="clr-namespace:System;assembly=System.Runtime"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
@@ -73,6 +74,48 @@
                                 <DataGridTextColumn Header="Заметки" Binding="{Binding Description}" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Разнотипные данные">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Header="Список данных">
+                        <ListBox ItemsSource="{Binding Path=CompositeCollection}" Margin="5" SelectedItem="{Binding Path=SelectedCompositeValue}" SelectedIndex="0">
+                            <ListBox.Resources>
+                                <DataTemplate DataType="{x:Type sys:Int32}">
+                                    <TextBlock Text="{Binding}" Foreground="Blue"/>
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type dec:Group}">
+                                    <TextBlock Text="{Binding Path=Name}" Foreground="Red"/>
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type dec:Student}">
+                                    <TextBlock Text="{Binding Path=Name}" Foreground="Green"/>
+                                </DataTemplate>
+                            </ListBox.Resources>
+                        </ListBox>
+                    </GroupBox>
+                    <GroupBox Grid.Column="1" Header="Подробная информация">
+                        <ContentControl Content="{Binding Path=SelectedCompositeValue}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30">
+                            <ContentControl.Resources>
+                                <DataTemplate DataType="{x:Type dec:Group}">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="{Binding Path=Name}"/>
+                                        <TextBlock Text="{Binding Path=Description}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type dec:Student}">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="{Binding Path=Surname}"/>
+                                        <TextBlock Text="{Binding Path=Name}"/>
+                                        <TextBlock Text="{Binding Path=Patronymic}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ContentControl.Resources>
+                        </ContentControl>
                     </GroupBox>
                 </Grid>
             </TabItem>
