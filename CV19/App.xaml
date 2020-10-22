@@ -9,6 +9,8 @@
                 <ResourceDictionary Source="Resources/Styles/Buttons.xaml"/>
                 <ResourceDictionary Source="Resources/DataTemplates/CompositeListItemsDataTemplates.xaml"/>
                 <ResourceDictionary Source="Resources/DataTemplates/CompositeItemsControlDataTemplates.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/AddButtonStyle.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/RemoveButtonStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

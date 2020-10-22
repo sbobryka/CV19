@@ -50,8 +50,8 @@
                     <GroupBox Grid.Column="0" Header="Группы" Padding="5">
                         <DockPanel>
                             <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,6,0,0">
-                                <Button Style="{StaticResource PrimaryButtonStyle}" Content="Добавить" Margin="0,0,3,0" Padding="5" Command="{Binding Path=CreateGroupCommand}"/>
-                                <Button Style="{StaticResource DangerButtonStyle}" Content="Удалить" Margin="3,0,0,0" Padding="5" Command="{Binding Path=RemoveGroupCommand}" CommandParameter="{Binding SelectedGroup}"/>
+                                <Button Style="{StaticResource AddButtonStyle}" Content="Добавить" Margin="0,0,3,0" Padding="5" Command="{Binding Path=CreateGroupCommand}"/>
+                                <Button Style="{StaticResource RemoveButtonStyle}" Content="Удалить" Margin="3,0,0,0" Padding="5" Command="{Binding Path=RemoveGroupCommand}" CommandParameter="{Binding SelectedGroup}"/>
                             </UniformGrid>
                             <ListBox ItemsSource="{Binding Path=Groups}" DisplayMemberPath="Name" SelectedItem="{Binding Path=SelectedGroup}" SelectedIndex="-1"/>
                         </DockPanel>
