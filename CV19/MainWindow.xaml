@@ -48,7 +48,13 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column="0" Header="Группы" Padding="5">
-                        <ListBox ItemsSource="{Binding Path=Groups}" DisplayMemberPath="Name" SelectedItem="{Binding Path=SelectedGroup}" SelectedIndex="0"/>
+                        <DockPanel>
+                            <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,6,0,0" Height="30">
+                                <Button Content="Добавить" Margin="0,0,3,0" Command="{Binding Path=CreateGroupCommand}"/>
+                                <Button Content="Удалить" Margin="3,0,0,0" Command="{Binding Path=RemoveGroupCommand}" CommandParameter="{Binding SelectedGroup}"/>
+                            </UniformGrid>
+                            <ListBox ItemsSource="{Binding Path=Groups}" DisplayMemberPath="Name" SelectedItem="{Binding Path=SelectedGroup}" SelectedIndex="-1"/>
+                        </DockPanel>
                     </GroupBox>
                     <GroupBox Padding="5" Grid.Column="1" Header="{Binding Path=SelectedGroup.Name, FallbackValue=Студенты, TargetNullValue='Группа не выбрана'}">
                         <DataGrid ItemsSource="{Binding Path=SelectedGroup.Students}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" GridLinesVisibility="Vertical" VerticalGridLinesBrush="LightGray" AlternatingRowBackground="AliceBlue" SelectionMode="Single" HeadersVisibility="Column">

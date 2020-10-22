@@ -13,6 +13,8 @@ namespace CV19.ViewModels
 {
     internal class ViewModelMainWindow : ViewModelBase
     {
+        private Random random = new Random();
+
         #region Заголовок окна
 
         private string _Title = "Анализ статистики CV19";
@@ -68,9 +70,8 @@ namespace CV19.ViewModels
 
         #region Команды
 
-        /// <summary>
-        /// Завершает работу приложения
-        /// </summary>
+        #region CloseApplicationCommand
+
         public ICommand CloseApplicationCommand { get; }
 
         private void OnCloseApplicationCommandExecuted(object property)
@@ -80,9 +81,10 @@ namespace CV19.ViewModels
 
         private bool CanCloseApplicationCommandExecute(object property) => true;
 
-        /// <summary>
-        /// Устанавливает статус
-        /// </summary>
+        #endregion
+
+        #region SetStatusCommand
+
         public ICommand SetStatusCommand { get; }
 
         private void OnSetStatusCommandExecuted(object property)
@@ -91,6 +93,44 @@ namespace CV19.ViewModels
         }
 
         private bool CanSetStatusCommandExecute(object property) => true;
+
+        #endregion
+
+        #region CreateGroupCommand
+
+        public ICommand CreateGroupCommand { get; }
+
+        private void OnCreateGroupCommandExecuted(object property)
+        {
+            Group group = new Group()
+            {
+                Name = $"Группа {random.Next(100)}",
+                Students = new ObservableCollection<Student>()
+            };
+            Groups.Insert(0, group);
+            SelectedGroup = group;
+        }
+
+        private bool CanCreateGroupCommandExecute(object property) => true;
+
+        #endregion
+
+        #region RemoveGroupCommand
+
+        public ICommand RemoveGroupCommand { get; }
+
+        private void OnRemoveGroupCommandExecuted(object property)
+        {
+            if (!(property is Group group)) return;
+            int index = Groups.IndexOf(group);
+            Groups.Remove(group);
+            if (index < Groups.Count)
+                SelectedGroup = Groups[index];
+        }
+
+        private bool CanRemoveGroupCommandExecute(object property) => property is Group group && Groups.Contains(group);
+
+        #endregion
 
         #endregion
 
@@ -110,6 +150,8 @@ namespace CV19.ViewModels
         {
             CloseApplicationCommand = new RelayCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
             SetStatusCommand = new RelayCommand(OnSetStatusCommandExecuted, CanSetStatusCommandExecute);
+            CreateGroupCommand = new RelayCommand(OnCreateGroupCommandExecuted, CanCreateGroupCommandExecute);
+            RemoveGroupCommand = new RelayCommand(OnRemoveGroupCommandExecuted, CanRemoveGroupCommandExecute);
 
             // Заполнение тестовыми данными
             List<DataPoint> testDataPoints = new List<DataPoint>((int)(360 / 0.1));
