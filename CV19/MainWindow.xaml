@@ -90,38 +90,14 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <GroupBox Header="Список данных">
-                        <ListBox ItemsSource="{Binding Path=CompositeCollection}" Margin="5" SelectedItem="{Binding Path=SelectedCompositeValue}" SelectedIndex="0">
-                            <ListBox.Resources>
-                                <DataTemplate DataType="{x:Type sys:Int32}">
-                                    <TextBlock Text="{Binding}" Foreground="Blue"/>
-                                </DataTemplate>
-                                <DataTemplate DataType="{x:Type dec:Group}">
-                                    <TextBlock Text="{Binding Path=Name}" Foreground="Red"/>
-                                </DataTemplate>
-                                <DataTemplate DataType="{x:Type dec:Student}">
-                                    <TextBlock Text="{Binding Path=Name}" Foreground="Green"/>
-                                </DataTemplate>
-                            </ListBox.Resources>
+                        <ListBox ItemsSource="{Binding Path=CompositeCollection}" Margin="5" SelectedItem="{Binding Path=SelectedCompositeValue}" SelectedIndex="0" Resources="{StaticResource CompositeListItemsResourceDictionary}">
+                            <!--<ListBox.Resources>
+                                <ResourceDictionary Source="Resources/DataTemplates/CompositeItemsDataTemplates.xaml"/>
+                            </ListBox.Resources>-->
                         </ListBox>
                     </GroupBox>
                     <GroupBox Grid.Column="1" Header="Подробная информация">
-                        <ContentControl Content="{Binding Path=SelectedCompositeValue}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30">
-                            <ContentControl.Resources>
-                                <DataTemplate DataType="{x:Type dec:Group}">
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="{Binding Path=Name}"/>
-                                        <TextBlock Text="{Binding Path=Description}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                                <DataTemplate DataType="{x:Type dec:Student}">
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="{Binding Path=Surname}"/>
-                                        <TextBlock Text="{Binding Path=Name}"/>
-                                        <TextBlock Text="{Binding Path=Patronymic}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ContentControl.Resources>
-                        </ContentControl>
+                        <ContentControl Content="{Binding Path=SelectedCompositeValue}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Resources="{StaticResource CompositeItemsControlDataTemplates}"/>
                     </GroupBox>
                 </Grid>
             </TabItem>
