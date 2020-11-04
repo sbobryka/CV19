@@ -53,7 +53,21 @@
                                 <Button Style="{StaticResource AddButtonStyle}" Content="Добавить" Margin="0,0,3,0" Padding="5" Command="{Binding Path=CreateGroupCommand}"/>
                                 <Button Style="{StaticResource RemoveButtonStyle}" Content="Удалить" Margin="3,0,0,0" Padding="5" Command="{Binding Path=RemoveGroupCommand}" CommandParameter="{Binding SelectedGroup}"/>
                             </UniformGrid>
-                            <ListBox ItemsSource="{Binding Path=Groups}" DisplayMemberPath="Name" SelectedItem="{Binding Path=SelectedGroup}" SelectedIndex="-1"/>
+                            <ListBox ItemsSource="{Binding Path=Groups}" SelectedItem="{Binding Path=SelectedGroup}" SelectedIndex="0">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate DataType="dec:Group">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Path=Name}" x:Name="GroupName"/>
+                                            <TextBlock Text="{Binding Path=Students.Count, StringFormat=' - [Студентов: {0}]'}"/>
+                                        </StackPanel>
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding Path=Students.Count}" Value="0">
+                                                <Setter TargetName="GroupName" Property="Foreground" Value="Red"/>
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
                         </DockPanel>
                     </GroupBox>
                     <GroupBox Padding="5" Grid.Column="1" Header="{Binding Path=SelectedGroup.Name, FallbackValue=Студенты, TargetNullValue='Группа не выбрана'}">
@@ -63,8 +77,20 @@
                                 <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=Surname}" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Имя" Binding="{Binding Path=Name}" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Отчество" Binding="{Binding Path=Patronymic}" IsReadOnly="True"/>
-                                <DataGridTextColumn Header="Рейтинг" Binding="{Binding Path=Rating}" IsReadOnly="True"/>
+                                <!--<DataGridTextColumn Header="Рейтинг" Binding="{Binding Path=Rating}" IsReadOnly="True"/>-->
                                 <!--<DataGridTextColumn Header="Дата рождения" Binding="{Binding Path=Birthday, StringFormat=dd.MM.yyy}"/>-->
+                                <DataGridTemplateColumn Header="Рейтинг">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate DataType="dec:Student">
+                                            <TextBlock Text="{Binding Path=Rating}" HorizontalAlignment="Center" x:Name="StudentRating"/>
+                                            <DataTemplate.Triggers>
+                                                <DataTrigger Binding="{Binding Path=Rating}" Value="0">
+                                                    <Setter TargetName="StudentRating" Property="Foreground" Value="Red"/>
+                                                </DataTrigger>
+                                            </DataTemplate.Triggers>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
                                 <DataGridTemplateColumn Header="Дата рождения">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="dec:Student">

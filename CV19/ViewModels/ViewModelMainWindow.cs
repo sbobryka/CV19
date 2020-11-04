@@ -171,9 +171,9 @@ namespace CV19.ViewModels
                 Surname = $"Фамилия {studentIndex}",
                 Patronymic = $"Отчество {studentIndex++}",
                 Birthday = DateTime.Now,
-                Rating = 0
+                Rating = random.Next(10)
             });
-            var groups = Enumerable.Range(1, 20).Select(g => new Group
+            var groups = Enumerable.Range(1, 5).Select(g => new Group
             {
                 Name = $"Группа {g}",
                 Description = $"Описание {g}",
