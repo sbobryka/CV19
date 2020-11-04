@@ -114,6 +114,26 @@
                     </oxy:Plot>
                 </Grid>
             </TabItem>
+            <TabItem Header="Вкладка 1">
+                <Button Width="100" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50" Content="Кнопка 1" RenderTransformOrigin="0.5,0.5" Style="{StaticResource OrangeButtonStyle}">
+                    <Button.Background>
+                        <SolidColorBrush x:Name="ButtonBrush" Color="White"/>
+                    </Button.Background>
+                    <Button.RenderTransform>
+                        <ScaleTransform x:Name="ButtonScale" ScaleX="1" ScaleY="1"/>
+                    </Button.RenderTransform>
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="ButtonScale" Storyboard.TargetProperty="ScaleX" To="1.2" Duration="0:0:0.1" AutoReverse="True"/>
+                                    <DoubleAnimation Storyboard.TargetName="ButtonScale" Storyboard.TargetProperty="ScaleY" To="1.2" Duration="0:0:0.1" AutoReverse="True"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </TabItem>
         </TabControl>
     </DockPanel>
 </Window>
