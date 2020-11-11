@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -62,18 +63,37 @@ namespace CV19.ViewModels
 
         private readonly CollectionViewSource groupsCollectionView = new CollectionViewSource();
 
-        public ICollectionView GroupsCollectionView
-        {
-            get => groupsCollectionView?.View;
-        }
+        public ICollectionView GroupsCollectionView { get => groupsCollectionView?.View; }
 
         private void GroupsCollectionView_Filter(object sender, FilterEventArgs e)
         {
             Group group = e.Item as Group;
 
             if (string.IsNullOrEmpty(GroupTextFilter)) return;
-            if (!(group.Name.Contains(GroupTextFilter))) e.Accepted = false;
+            if (!(group.Name.Contains(GroupTextFilter, StringComparison.OrdinalIgnoreCase))) e.Accepted = false;
         }
+
+        #endregion
+
+        #region GroupStudents
+
+        private readonly CollectionViewSource groupStudentsCollectionView = new CollectionViewSource();
+
+        public ICollectionView GroupStudentsCollectionView { get => groupStudentsCollectionView.View; }
+
+        private void GroupStudentsCollectionView_Filter(object sender, FilterEventArgs e)
+        {
+            Student student = e.Item as Student;
+
+            if (string.IsNullOrEmpty(StudentTextFilter)) return;
+            if (IsStudentsNotFound(student, StudentTextFilter)) e.Accepted = false;
+        }
+
+        private bool IsStudentsNotFound(Student student, string textFilter) => (
+            !(student.Name.Contains(textFilter, StringComparison.OrdinalIgnoreCase)) &&
+            !(student.Surname.Contains(textFilter, StringComparison.OrdinalIgnoreCase)) &&
+            !(student.Patronymic.Contains(textFilter, StringComparison.OrdinalIgnoreCase))
+            );
 
         #endregion
 
@@ -84,11 +104,18 @@ namespace CV19.ViewModels
         public Group SelectedGroup
         {
             get => _SelectedGroup;
-            set => Set(ref _SelectedGroup, value);
+            set
+            {
+                if (Set(ref _SelectedGroup, value))
+                {
+                    groupStudentsCollectionView.Source = value?.Students;
+                    GroupStudentsCollectionView?.Refresh();
+                    OnPropertyChanged(nameof(GroupStudentsCollectionView));
+                }
+            }
         }
 
         #endregion
-
 
         #region GroupTextFilter
 
@@ -101,6 +128,22 @@ namespace CV19.ViewModels
             {
                 if (Set(ref groupTextFilter, value))
                     GroupsCollectionView.Refresh();
+            }
+        }
+
+        #endregion
+
+        #region StudentTextFilter
+
+        private string studentTextFilter;
+
+        public string StudentTextFilter
+        {
+            get => studentTextFilter;
+            set
+            {
+                if (Set(ref studentTextFilter, value))
+                    GroupStudentsCollectionView?.Refresh();
             }
         }
 
@@ -170,6 +213,26 @@ namespace CV19.ViewModels
 
         #endregion
 
+        #region ClearGroupTextFilterCommand
+
+        public ICommand ClearGroupTextFilterCommand { get; }
+
+        private void OnClearGroupTextFilterCommandExecuted(object property) => GroupTextFilter = "";
+
+        private bool CanClearGroupTextFilterCommandExecute(object property) => true;
+
+        #endregion
+
+        #region ClearStudentTextFilterCommand
+
+        public ICommand ClearStudentTextFilterCommand { get; }
+
+        private void OnClearStudentTextFilterCommandExecuted(object property) => StudentTextFilter = "";
+
+        private bool CanClearStudentTextFilterCommandExecute(object property) => true;
+
+        #endregion
+
         #endregion
 
         #region Разнотипный набор данных
@@ -190,6 +253,8 @@ namespace CV19.ViewModels
             SetStatusCommand = new RelayCommand(OnSetStatusCommandExecuted, CanSetStatusCommandExecute);
             CreateGroupCommand = new RelayCommand(OnCreateGroupCommandExecuted, CanCreateGroupCommandExecute);
             RemoveGroupCommand = new RelayCommand(OnRemoveGroupCommandExecuted, CanRemoveGroupCommandExecute);
+            ClearGroupTextFilterCommand = new RelayCommand(OnClearGroupTextFilterCommandExecuted, CanClearGroupTextFilterCommandExecute);
+            ClearStudentTextFilterCommand = new RelayCommand(OnClearStudentTextFilterCommandExecuted, CanClearStudentTextFilterCommandExecute);
 
             // Заполнение тестовыми данными
             List<DataPoint> testDataPoints = new List<DataPoint>((int)(360 / 0.1));
@@ -232,8 +297,10 @@ namespace CV19.ViewModels
 
             // Заполнение коллекции с возможностью фильтрации
             groupsCollectionView.Source = Groups;
+            //groupsCollectionView.View.Refresh();
             groupsCollectionView.Filter += GroupsCollectionView_Filter;
-            groupsCollectionView.View.Refresh();
+
+            groupStudentsCollectionView.Filter += GroupStudentsCollectionView_Filter;
         }
 
         #endregion

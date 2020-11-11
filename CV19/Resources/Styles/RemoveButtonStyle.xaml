@@ -13,11 +13,11 @@
     </Style>
 
     <SolidColorBrush x:Key="Button.Static.Background" Color="WhiteSmoke"/>
-    <SolidColorBrush x:Key="Button.Static.Border" Color="Red"/>
-    <SolidColorBrush x:Key="Button.MouseOver.Background" Color="Red"/>
-    <SolidColorBrush x:Key="Button.MouseOver.Border" Color="Red"/>
-    <SolidColorBrush x:Key="Button.Pressed.Background" Color="DarkRed"/>
-    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Red"/>
+    <SolidColorBrush x:Key="Button.Static.Border" Color="Tomato"/>
+    <SolidColorBrush x:Key="Button.MouseOver.Background" Color="Tomato"/>
+    <SolidColorBrush x:Key="Button.MouseOver.Border" Color="Tomato"/>
+    <SolidColorBrush x:Key="Button.Pressed.Background" Color="IndianRed"/>
+    <SolidColorBrush x:Key="Button.Pressed.Border" Color="Tomato"/>
     <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
     <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
     <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
@@ -26,7 +26,7 @@
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
         <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
         <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
-        <Setter Property="Foreground" Value="Red"/>
+        <Setter Property="Foreground" Value="Tomato"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -48,6 +48,7 @@
                             <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
                             <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
                             <Setter Property="Foreground" Value="WhiteSmoke"/>
+                            <Setter Property="Cursor" Value="Hand"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>

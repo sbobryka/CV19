@@ -17,6 +17,7 @@
         <fa:FontAwesome Icon="Regular_FolderOpen" x:Key="Regular_FolderOpen" Foreground="Blue"/>
         <fa:FontAwesome Icon="Solid_DoorOpen" x:Key="Solid_DoorOpen" Foreground="Blue"/>
         <fa:FontAwesome Icon="Regular_QuestionCircle" x:Key="Regular_QuestionCircle" Foreground="Green"/>
+        <fa:ImageAwesome Icon="Solid_Search" x:Key="Solid_Search" Foreground="Green" Height="25" Margin="0,0,5,0" DockPanel.Dock="Left"/>
     </Window.Resources>
     <Window.DataContext>
         <vm:ViewModelMainWindow/>
@@ -53,8 +54,11 @@
                                 <CollectionViewSource x:Key="GroupsCollection" Source="{Binding Path=Groups}"/>
                             </DockPanel.Resources>-->
                             <DockPanel DockPanel.Dock="Top" Margin="0,5">
-                                <fa:ImageAwesome Icon="Solid_Search" Height="18" Margin="0,0,5,0"/>
-                                <TextBox Text="{Binding Path=GroupTextFilter, UpdateSourceTrigger=PropertyChanged}"/>
+                                <fa:ImageAwesome Icon="Solid_Search" Foreground="Green" Height="25" Margin="0,0,5,0" DockPanel.Dock="Left"/>
+                                <Button DockPanel.Dock="Right" Margin="5,0,0,0" Command="{Binding Path=ClearGroupTextFilterCommand}" Height="25" Width="25" Cursor="Hand" ToolTip="Очистить фильтр">
+                                    <fa:ImageAwesome Icon="Solid_Times" Foreground="Tomato" Height="15"/>
+                                </Button>
+                                <TextBox Text="{Binding Path=GroupTextFilter, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" Height="25"/>
                             </DockPanel>
                             <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,6,0,0">
                                 <Button Style="{StaticResource AddButtonStyle}" Content="Добавить" Margin="0,0,3,0" Padding="5" Command="{Binding Path=CreateGroupCommand}"/>
@@ -80,10 +84,13 @@
                     <GroupBox Padding="5" Grid.Column="1" Header="{Binding Path=SelectedGroup.Name, FallbackValue=Студенты, TargetNullValue='Группа не выбрана'}">
                         <DockPanel>
                             <DockPanel DockPanel.Dock="Top" Margin="0,5">
-                                <fa:ImageAwesome Icon="Solid_Search" Height="18" Margin="0,0,5,0"/>
-                                <TextBox/>
+                                <fa:ImageAwesome Icon="Solid_Search" Foreground="Green" Height="25" Margin="0,0,5,0" DockPanel.Dock="Left"/>
+                                <Button DockPanel.Dock="Right" Margin="5,0,0,0" Command="{Binding Path=ClearStudentTextFilterCommand}" Height="25" Width="25" Cursor="Hand" ToolTip="Очистить фильтр">
+                                    <fa:ImageAwesome Icon="Solid_Times" Foreground="Tomato" Height="15"/>
+                                </Button>
+                                <TextBox Text="{Binding Path=StudentTextFilter, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"/>
                             </DockPanel>
-                            <DataGrid ItemsSource="{Binding Path=SelectedGroup.Students}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" GridLinesVisibility="Vertical" VerticalGridLinesBrush="LightGray" AlternatingRowBackground="AliceBlue" SelectionMode="Single" HeadersVisibility="Column">
+                            <DataGrid ItemsSource="{Binding Path=GroupStudentsCollectionView}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" GridLinesVisibility="Vertical" VerticalGridLinesBrush="LightGray" AlternatingRowBackground="AliceBlue" SelectionMode="Single" HeadersVisibility="Column">
                                 <DataGrid.Columns>
                                     <!--<DataGridTextColumn Header="Группа" Binding="{Binding DataContext.SelectedGroup.Name, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>-->
                                     <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=Surname}" IsReadOnly="True"/>
