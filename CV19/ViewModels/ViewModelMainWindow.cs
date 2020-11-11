@@ -142,12 +142,11 @@ namespace CV19.ViewModels
         {
             Group group = new Group()
             {
-                Name = $"Группа {random.Next(10000, 99999)}",
+                Name = $"Группа №{random.Next(10000, 99999)}",
                 Students = new ObservableCollection<Student>()
             };
             Groups.Insert(0, group);
             SelectedGroup = group;
-            GroupsCollectionView.Refresh();
         }
 
         private bool CanCreateGroupCommandExecute(object property) => true;
@@ -203,18 +202,19 @@ namespace CV19.ViewModels
             DataPoints = testDataPoints;
 
             // Заполнение тестовыми данным группы студентов
-            int studentIndex = 1;
-            var students = Enumerable.Range(1, 10).Select(s => new Student
+            //int studentIndex = 1;
+            //var students = Enumerable.Range(1, 10).Select(s => new Student
+            //{
+            //    Name = $"Имя {studentIndex}",
+            //    Surname = $"Фамилия {studentIndex}",
+            //    Patronymic = $"Отчество {studentIndex++}",
+            //    Birthday = DateTime.Now,
+            //    Rating = random.Next(10)
+            //});
+            var students = Enumerable.Range(1, 10).Select(s => Student.GenerateRandomStudent());
+            var groups = Enumerable.Range(1, 10).Select(g => new Group
             {
-                Name = $"Имя {studentIndex}",
-                Surname = $"Фамилия {studentIndex}",
-                Patronymic = $"Отчество {studentIndex++}",
-                Birthday = DateTime.Now,
-                Rating = random.Next(10)
-            });
-            var groups = Enumerable.Range(1, 5).Select(g => new Group
-            {
-                Name = $"Группа {random.Next(10000, 99999)}",
+                Name = $"Группа №{random.Next(10000, 99999)}",
                 //Name = $"Группа {g}",
                 Description = $"Описание {g}",
                 Students = new ObservableCollection<Student>(students)
