@@ -49,6 +49,10 @@
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column="0" Header="Группы" Padding="5">
                         <DockPanel>
+                            <DockPanel DockPanel.Dock="Top" Margin="0,5">
+                                <fa:ImageAwesome Icon="Solid_Search" Height="18" Margin="0,0,5,0"/>
+                                <TextBox/>
+                            </DockPanel>
                             <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,6,0,0">
                                 <Button Style="{StaticResource AddButtonStyle}" Content="Добавить" Margin="0,0,3,0" Padding="5" Command="{Binding Path=CreateGroupCommand}"/>
                                 <Button Style="{StaticResource RemoveButtonStyle}" Content="Удалить" Margin="3,0,0,0" Padding="5" Command="{Binding Path=RemoveGroupCommand}" CommandParameter="{Binding SelectedGroup}"/>
@@ -71,45 +75,51 @@
                         </DockPanel>
                     </GroupBox>
                     <GroupBox Padding="5" Grid.Column="1" Header="{Binding Path=SelectedGroup.Name, FallbackValue=Студенты, TargetNullValue='Группа не выбрана'}">
-                        <DataGrid ItemsSource="{Binding Path=SelectedGroup.Students}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" GridLinesVisibility="Vertical" VerticalGridLinesBrush="LightGray" AlternatingRowBackground="AliceBlue" SelectionMode="Single" HeadersVisibility="Column">
-                            <DataGrid.Columns>
-                                <!--<DataGridTextColumn Header="Группа" Binding="{Binding DataContext.SelectedGroup.Name, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>-->
-                                <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=Surname}" IsReadOnly="True"/>
-                                <DataGridTextColumn Header="Имя" Binding="{Binding Path=Name}" IsReadOnly="True"/>
-                                <DataGridTextColumn Header="Отчество" Binding="{Binding Path=Patronymic}" IsReadOnly="True"/>
-                                <!--<DataGridTextColumn Header="Рейтинг" Binding="{Binding Path=Rating}" IsReadOnly="True"/>-->
-                                <!--<DataGridTextColumn Header="Дата рождения" Binding="{Binding Path=Birthday, StringFormat=dd.MM.yyy}"/>-->
-                                <DataGridTemplateColumn Header="Рейтинг">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate DataType="dec:Student">
-                                            <TextBlock Text="{Binding Path=Rating}" HorizontalAlignment="Center" x:Name="StudentRating"/>
-                                            <DataTemplate.Triggers>
-                                                <DataTrigger Binding="{Binding Path=Rating}" Value="0">
-                                                    <Setter TargetName="StudentRating" Property="Foreground" Value="Red"/>
-                                                </DataTrigger>
-                                            </DataTemplate.Triggers>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Header="Дата рождения">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate DataType="dec:Student">
-                                            <TextBlock Text="{Binding Path=Birthday, StringFormat=dd.MM.yyyy}"/>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                    <DataGridTemplateColumn.CellEditingTemplate>
-                                        <DataTemplate DataType="dec:Student">
-                                            <DatePicker SelectedDate="{Binding Path=Birthday}"/>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellEditingTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTextColumn Header="Заметки" Binding="{Binding Description}" Width="*"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                        <DockPanel>
+                            <DockPanel DockPanel.Dock="Top" Margin="0,5">
+                                <fa:ImageAwesome Icon="Solid_Search" Height="18" Margin="0,0,5,0"/>
+                                <TextBox/>
+                            </DockPanel>
+                            <DataGrid ItemsSource="{Binding Path=SelectedGroup.Students}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" GridLinesVisibility="Vertical" VerticalGridLinesBrush="LightGray" AlternatingRowBackground="AliceBlue" SelectionMode="Single" HeadersVisibility="Column">
+                                <DataGrid.Columns>
+                                    <!--<DataGridTextColumn Header="Группа" Binding="{Binding DataContext.SelectedGroup.Name, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>-->
+                                    <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=Surname}" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="Имя" Binding="{Binding Path=Name}" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="Отчество" Binding="{Binding Path=Patronymic}" IsReadOnly="True"/>
+                                    <!--<DataGridTextColumn Header="Рейтинг" Binding="{Binding Path=Rating}" IsReadOnly="True"/>-->
+                                    <!--<DataGridTextColumn Header="Дата рождения" Binding="{Binding Path=Birthday, StringFormat=dd.MM.yyy}"/>-->
+                                    <DataGridTemplateColumn Header="Рейтинг">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate DataType="dec:Student">
+                                                <TextBlock Text="{Binding Path=Rating}" HorizontalAlignment="Center" x:Name="StudentRating"/>
+                                                <DataTemplate.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=Rating}" Value="0">
+                                                        <Setter TargetName="StudentRating" Property="Foreground" Value="Red"/>
+                                                    </DataTrigger>
+                                                </DataTemplate.Triggers>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Дата рождения">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate DataType="dec:Student">
+                                                <TextBlock Text="{Binding Path=Birthday, StringFormat=dd.MM.yyyy}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate DataType="dec:Student">
+                                                <DatePicker SelectedDate="{Binding Path=Birthday}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="Заметки" Binding="{Binding Description}" Width="*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DockPanel>
                     </GroupBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="Разнотипные данные">
+            <TabItem Header="Разнотипные данные" Visibility="Collapsed">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="250"/>
@@ -127,7 +137,7 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="График">
+            <TabItem Header="График" Visibility="Collapsed">
                 <Grid>
                     <!--<TextBox Height="20" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Text="{Binding Path=Title, UpdateSourceTrigger=PropertyChanged}"/>-->
                     <!--<Button Width="120" Height="30" Content="Установить статус" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Command="{Binding Path=SetStatusCommand}" CommandParameter="Работаю"/>-->
@@ -140,7 +150,7 @@
                     </oxy:Plot>
                 </Grid>
             </TabItem>
-            <TabItem Header="Вкладка 1">
+            <TabItem Header="Тестовые элементы формы" Visibility="Collapsed">
                 <Button Width="100" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50" Content="Кнопка 1" RenderTransformOrigin="0.5,0.5" Style="{StaticResource OrangeButtonStyle}">
                     <Button.Background>
                         <SolidColorBrush x:Name="ButtonBrush" Color="White"/>
