@@ -4,9 +4,11 @@ using CV19.Models.Decanat;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace CV19.ViewModels
@@ -54,9 +56,28 @@ namespace CV19.ViewModels
 
         #endregion
 
-        #region Группы и студенты
+        #region Groups
 
         public ObservableCollection<Group> Groups { get; }
+
+        private readonly CollectionViewSource groupsCollectionView = new CollectionViewSource();
+
+        public ICollectionView GroupsCollectionView
+        {
+            get => groupsCollectionView?.View;
+        }
+
+        private void GroupsCollectionView_Filter(object sender, FilterEventArgs e)
+        {
+            Group group = e.Item as Group;
+
+            if (string.IsNullOrEmpty(GroupTextFilter)) return;
+            if (!(group.Name.Contains(GroupTextFilter))) e.Accepted = false;
+        }
+
+        #endregion
+
+        #region SelectedGroup
 
         private Group _SelectedGroup;
 
@@ -64,6 +85,23 @@ namespace CV19.ViewModels
         {
             get => _SelectedGroup;
             set => Set(ref _SelectedGroup, value);
+        }
+
+        #endregion
+
+
+        #region GroupTextFilter
+
+        private string groupTextFilter;
+
+        public string GroupTextFilter
+        {
+            get => groupTextFilter;
+            set
+            {
+                if (Set(ref groupTextFilter, value))
+                    GroupsCollectionView.Refresh();
+            }
         }
 
         #endregion
@@ -104,11 +142,12 @@ namespace CV19.ViewModels
         {
             Group group = new Group()
             {
-                Name = $"Группа {random.Next(100)}",
+                Name = $"Группа {random.Next(10000, 99999)}",
                 Students = new ObservableCollection<Student>()
             };
             Groups.Insert(0, group);
             SelectedGroup = group;
+            GroupsCollectionView.Refresh();
         }
 
         private bool CanCreateGroupCommandExecute(object property) => true;
@@ -175,7 +214,8 @@ namespace CV19.ViewModels
             });
             var groups = Enumerable.Range(1, 5).Select(g => new Group
             {
-                Name = $"Группа {g}",
+                Name = $"Группа {random.Next(10000, 99999)}",
+                //Name = $"Группа {g}",
                 Description = $"Описание {g}",
                 Students = new ObservableCollection<Student>(students)
             });
@@ -189,6 +229,11 @@ namespace CV19.ViewModels
             list.Add(groups.FirstOrDefault());
             list.Add(students.FirstOrDefault());
             CompositeCollection = list.ToArray();
+
+            // Заполнение коллекции с возможностью фильтрации
+            groupsCollectionView.Source = Groups;
+            groupsCollectionView.Filter += GroupsCollectionView_Filter;
+            groupsCollectionView.View.Refresh();
         }
 
         #endregion
