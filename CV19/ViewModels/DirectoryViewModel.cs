@@ -19,7 +19,7 @@ namespace CV19.ViewModels
                 {
                     return directoryInfo
                         .EnumerateDirectories()
-                        .Select(d => new DirectoryViewModel(d.FullName));
+                        .Select(d => new DirectoryViewModel(d.FullName)).OrderBy(d => d.Name);
                 }
                 catch (UnauthorizedAccessException e)
                 {
@@ -38,7 +38,7 @@ namespace CV19.ViewModels
                 {
                     return directoryInfo
                         .EnumerateFiles()
-                        .Select(f => new FileViewModel(f.FullName));
+                        .Select(f => new FileViewModel(f.FullName)).OrderBy(f => f.Name);
                 }
                 catch (UnauthorizedAccessException e)
                 {

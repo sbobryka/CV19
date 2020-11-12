@@ -69,7 +69,16 @@
                     </GroupBox>
                     <GridSplitter Grid.Column="1" Width="3" ShowsPreview="False" HorizontalAlignment="Center"/>
                     <GroupBox Grid.Column="2" Header="{Binding Path=SelectedDirectory.Name, FallbackValue='Каталог не выбран'}" Padding="5">
-                        <ListBox ItemsSource="{Binding Path=SelectedDirectory.Files}" DisplayMemberPath="Name"/>
+                        <GroupBox.Resources>
+                            <DataTemplate DataType="{x:Type vm:FileViewModel}">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:ImageAwesome Icon="Regular_FileAlt" Foreground="Gray" Height="12" Margin="0,0,5,0"/>
+                                    <TextBlock Text="{Binding Path=Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GroupBox.Resources>
+                        <ListBox ItemsSource="{Binding Path=SelectedDirectory.Files}">
+                        </ListBox>
                     </GroupBox>
                 </Grid>
             </TabItem>
