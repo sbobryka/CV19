@@ -111,6 +111,10 @@ namespace CV19.ViewModels
                     groupStudentsCollectionView.Source = value?.Students;
                     GroupStudentsCollectionView?.Refresh();
                     OnPropertyChanged(nameof(GroupStudentsCollectionView));
+
+                    groupStudentsCollectionView.SortDescriptions.Add(new SortDescription("Surname", ListSortDirection.Ascending));
+                    groupStudentsCollectionView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+                    groupStudentsCollectionView.SortDescriptions.Add(new SortDescription("Patronymic", ListSortDirection.Ascending));
                 }
             }
         }
@@ -298,6 +302,7 @@ namespace CV19.ViewModels
             // Заполнение коллекции с возможностью фильтрации
             groupsCollectionView.Source = Groups;
             //groupsCollectionView.View.Refresh();
+            groupsCollectionView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
             groupsCollectionView.Filter += GroupsCollectionView_Filter;
 
             groupStudentsCollectionView.Filter += GroupStudentsCollectionView_Filter;
