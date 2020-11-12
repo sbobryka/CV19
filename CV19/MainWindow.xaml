@@ -9,6 +9,7 @@
         xmlns:sys="clr-namespace:System;assembly=System.Runtime"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="{Binding Path=Title}" Height="450" Width="800"
         WindowStartupLocation="CenterScreen">
@@ -42,6 +43,36 @@
             </StatusBarItem>
         </StatusBar>
         <TabControl>
+            <TabItem Header="Файловая система">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Grid.Column="0" Header="Каталоги" Padding="5">
+                        <GroupBox.Resources>
+                            <HierarchicalDataTemplate DataType="{x:Type vm:DirectoryViewModel}" ItemsSource="{Binding Path=SubDirectories}">
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:ImageAwesome Icon="Solid_Folder" Foreground="DarkGoldenrod" Height="12" Margin="0,0,5,0"/>
+                                    <TextBlock Text="{Binding Path=Name}"/>
+                                </StackPanel>
+                            </HierarchicalDataTemplate>
+                        </GroupBox.Resources>
+                        <TreeView x:Name="DirectoryTreeView" ItemsSource="{Binding Path=RootDirectoriesDisk.SubDirectories}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectedItemChanged">
+                                    <i:InvokeCommandAction Command="{Binding Path=SelectDirectoryCommand}" CommandParameter="{Binding ElementName=DirectoryTreeView, Path=SelectedItem}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TreeView>
+                    </GroupBox>
+                    <GridSplitter Grid.Column="1" Width="3" ShowsPreview="False" HorizontalAlignment="Center"/>
+                    <GroupBox Grid.Column="2" Header="{Binding Path=SelectedDirectory.Name, FallbackValue='Каталог не выбран'}" Padding="5">
+                        <ListBox ItemsSource="{Binding Path=SelectedDirectory.Files}" DisplayMemberPath="Name"/>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
             <TabItem Header="Студенты">
                 <Grid>
                     <Grid.ColumnDefinitions>

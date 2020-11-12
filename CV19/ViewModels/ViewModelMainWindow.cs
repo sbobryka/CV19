@@ -237,6 +237,15 @@ namespace CV19.ViewModels
 
         #endregion
 
+        public ICommand SelectDirectoryCommand { get; }
+
+        private void OnSelectDirectoryCommandExecuted(object property)
+        {
+            SelectedDirectory = property as DirectoryViewModel;
+        }
+
+        private bool CanSelectDirectoryCommandExecute(object property) => true;
+
         #endregion
 
         #region Разнотипный набор данных
@@ -249,6 +258,25 @@ namespace CV19.ViewModels
 
         #endregion
 
+        #region RootDirectoriesDisk
+
+        public DirectoryViewModel RootDirectoriesDisk { get; } = new DirectoryViewModel("c:\\");
+
+        #endregion
+
+        #region SelectedDirectory
+
+        private DirectoryViewModel selectedDirectory;
+
+        public DirectoryViewModel SelectedDirectory
+        {
+            get => selectedDirectory;
+            set => Set(ref selectedDirectory, value);
+        } 
+
+        #endregion
+
+
         #region Конструктор
 
         public ViewModelMainWindow()
@@ -259,6 +287,7 @@ namespace CV19.ViewModels
             RemoveGroupCommand = new RelayCommand(OnRemoveGroupCommandExecuted, CanRemoveGroupCommandExecute);
             ClearGroupTextFilterCommand = new RelayCommand(OnClearGroupTextFilterCommandExecuted, CanClearGroupTextFilterCommandExecute);
             ClearStudentTextFilterCommand = new RelayCommand(OnClearStudentTextFilterCommandExecuted, CanClearStudentTextFilterCommandExecute);
+            SelectDirectoryCommand = new RelayCommand(OnSelectDirectoryCommandExecuted, CanSelectDirectoryCommandExecute);
 
             // Заполнение тестовыми данными
             List<DataPoint> testDataPoints = new List<DataPoint>((int)(360 / 0.1));
