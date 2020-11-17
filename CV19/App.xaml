@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="Resources/Styles/AddButtonStyle.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/RemoveButtonStyle.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/OrangeButtonStyle.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/GridSplitters.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

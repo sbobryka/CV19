@@ -10,6 +10,7 @@
         xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:view="clr-namespace:CV19.Views"
         mc:Ignorable="d"
         Title="{Binding Path=Title}" Height="450" Width="800"
         WindowStartupLocation="CenterScreen">
@@ -43,6 +44,9 @@
             </StatusBarItem>
         </StatusBar>
         <TabControl>
+            <TabItem Header="Графики">
+                <view:CountriesStatisticView/>
+            </TabItem>
             <TabItem Header="Файловая система">
                 <Grid>
                     <Grid.ColumnDefinitions>
