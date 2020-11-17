@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CV19.Services;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,10 @@ namespace CV19
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            DataService dataService = new DataService();
+            var countries = dataService.GetData().ToArray();
+        }
     }
 }

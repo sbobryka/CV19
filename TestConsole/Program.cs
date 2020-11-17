@@ -69,9 +69,14 @@ namespace TestConsole
             //var dates = GetDates();
             //Console.WriteLine(string.Join("\r\n", dates));
 
-            var russiaData = GetData().First(v => v.Country.Equals("Russia", StringComparison.OrdinalIgnoreCase));
-            Console.WriteLine(string.Join("\r\n", GetDates()
-                .Zip(russiaData.Counts, (date, count) => $"{date:dd:MM:yyyy} - {count}")));
+            //var russiaData = GetData().First(v => v.Country.Equals("Russia", StringComparison.OrdinalIgnoreCase));
+            //Console.WriteLine(string.Join("\r\n", GetDates()
+            //    .Zip(russiaData.Counts, (date, count) => $"{date:dd:MM:yyyy} - {count}")));
+
+            string s = "33,93911";
+            //string s = "33.93";
+            double d = double.Parse(s);
+            Console.WriteLine(d);
         }
     }
 }
