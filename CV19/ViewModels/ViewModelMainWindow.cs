@@ -283,8 +283,10 @@ namespace CV19.ViewModels
 
         public ViewModelMainWindow()
         {
+            // Подчиненная модель-представление
             countriesStatisticViewModel = new CountriesStatisticViewModel(this);
 
+            // Инициализация команд
             CloseApplicationCommand = new RelayCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
             SetStatusCommand = new RelayCommand(OnSetStatusCommandExecuted, CanSetStatusCommandExecute);
             CreateGroupCommand = new RelayCommand(OnCreateGroupCommandExecuted, CanCreateGroupCommandExecute);
