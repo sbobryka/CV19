@@ -18,7 +18,7 @@ namespace CV19.ViewModels
     {
         private Random random = new Random();
 
-        private CountriesStatisticViewModel countriesStatisticViewModel;
+        public CountriesStatisticViewModel CountriesStatisticViewModel { get; }
 
         #region Заголовок окна
 
@@ -284,7 +284,7 @@ namespace CV19.ViewModels
         public ViewModelMainWindow()
         {
             // Подчиненная модель-представление
-            countriesStatisticViewModel = new CountriesStatisticViewModel(this);
+            CountriesStatisticViewModel = new CountriesStatisticViewModel(this);
 
             // Инициализация команд
             CloseApplicationCommand = new RelayCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);

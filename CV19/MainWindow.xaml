@@ -45,7 +45,7 @@
         </StatusBar>
         <TabControl>
             <TabItem Header="Графики">
-                <view:CountriesStatisticView/>
+                <view:CountriesStatisticView DataContext="{Binding Path=CountriesStatisticViewModel}"/>
             </TabItem>
             <TabItem Header="Файловая система">
                 <Grid>

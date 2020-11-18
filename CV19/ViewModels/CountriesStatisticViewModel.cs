@@ -10,7 +10,7 @@ namespace CV19.ViewModels
 {
     internal class CountriesStatisticViewModel : ViewModelBase
     {
-        private ViewModelMainWindow mainViewModel { get; }
+        private ViewModelMainWindow mainViewModel;
 
         private DataService dataService;
 
@@ -28,7 +28,7 @@ namespace CV19.ViewModels
 
         #region RefreshDataCommand
 
-        public ICommand RefreshDataCommand;
+        public ICommand RefreshDataCommand { get; }
 
         private void OnRefreshDataCommandExecuted(object property) => Countries = dataService.GetData();
 
