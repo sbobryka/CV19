@@ -9,5 +9,10 @@ namespace CV19.Models
         public string Name { get; set; }
         public virtual Point Location { get; set; }
         public IEnumerable<ConfirmedCount> Counts { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Name} ({Location.X}; {Location.Y})";
+        }
     }
 }

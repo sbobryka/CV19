@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:CV19.Views"
              xmlns:vm="clr-namespace:CV19.ViewModels"
+             xmlns:m="clr-namespace:CV19.Models"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance vm:CountriesStatisticViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -16,7 +17,15 @@
         <GroupBox Header="Список стран" Padding="3">
             <DockPanel>
                 <Button DockPanel.Dock="Bottom" Height="25" Content="Загрузить список стран" Margin="0,5,0,0" Command="{Binding Path=RefreshDataCommand}"/>
-                <ListBox ItemsSource="{Binding Path=Countries}" DisplayMemberPath="Name"/>
+                <ListBox ItemsSource="{Binding Path=Countries}" SelectedItem="{Binding Path=SelectedCountry}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="m:CountryInfo">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Path=Name}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </DockPanel>
         </GroupBox>
         <GridSplitter VerticalAlignment="Stretch"/>

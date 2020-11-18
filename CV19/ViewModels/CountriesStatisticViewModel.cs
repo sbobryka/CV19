@@ -26,6 +26,18 @@ namespace CV19.ViewModels
 
         #endregion
 
+        #region SelectedCountry
+
+        private CountryInfo selectedCountry;
+
+        public CountryInfo SelectedCountry
+        {
+            get => selectedCountry;
+            set => Set(ref selectedCountry, value);
+        }
+
+        #endregion
+
         #region RefreshDataCommand
 
         public ICommand RefreshDataCommand { get; }
