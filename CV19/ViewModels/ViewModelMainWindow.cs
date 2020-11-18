@@ -18,6 +18,8 @@ namespace CV19.ViewModels
     {
         private Random random = new Random();
 
+        private CountriesStatisticViewModel countriesStatisticViewModel;
+
         #region Заголовок окна
 
         private string _Title = "Анализ статистики CV19";
@@ -281,6 +283,8 @@ namespace CV19.ViewModels
 
         public ViewModelMainWindow()
         {
+            countriesStatisticViewModel = new CountriesStatisticViewModel(this);
+
             CloseApplicationCommand = new RelayCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
             SetStatusCommand = new RelayCommand(OnSetStatusCommandExecuted, CanSetStatusCommandExecute);
             CreateGroupCommand = new RelayCommand(OnCreateGroupCommandExecuted, CanCreateGroupCommandExecute);
