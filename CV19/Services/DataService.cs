@@ -51,8 +51,11 @@ namespace CV19.Services
             {
                 string province = line[0].Trim();
                 string country = line[1].Trim(' ', '"');
-                double latitude = double.Parse(line[2].Trim().Replace('.', ','));
-                double longitude = double.Parse(line[3].Trim().Replace('.', ','));
+                double.TryParse(line[2].Trim().Replace('.', ','), out double latitude);
+                double.TryParse(line[3].Trim().Replace('.', ','), out double longitude);
+                //double latitude = double.Parse(line[2].Trim().Replace('.', ','));
+                //double longitude = double.Parse(line[3].Trim().Replace('.', ','));
+
                 int[] counts = line.Skip(4).Select(int.Parse).ToArray();
 
                 yield return (country, province, (latitude, longitude), counts);

@@ -7,16 +7,17 @@ using System.Windows.Data;
 
 namespace CV19.Converters
 {
-    internal class LocationPointToStr : IValueConverter
+    [ValueConversion(typeof(Point), typeof(string))]
+    internal class LocationPointToStr : Converter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (!(value is Point point)) return null;
 
             return $"{point.X:f3} : {point.Y:f3}";
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

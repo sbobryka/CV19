@@ -13,6 +13,7 @@
     <UserControl.Resources>
         <c:LocationPointToStr x:Key="LocationConverter"/>
         <c:Ratio K="2" x:Key="Ratio2"/>
+        <c:Linear K="5" B="3" x:Key="Linear_K5_B3"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -47,7 +48,9 @@
                         <ColumnDefinition Width="100"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <TextBox Grid.Column="0" Margin="5" Text="{Binding ElementName=ValueSlider, Path=Value, Converter={StaticResource Ratio2}, UpdateSourceTrigger=PropertyChanged}"/>
+                    <!--<TextBox Grid.Column="0" Margin="5" Text="{Binding ElementName=ValueSlider, Path=Value, Converter={StaticResource Ratio2}, UpdateSourceTrigger=PropertyChanged}"/>-->
+                    <!--<TextBlock Text="{Binding ElementName=ValueSlider, Path=Value, Converter={StaticResource Ratio2}, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center" VerticalAlignment="Center"/>-->
+                    <TextBox Grid.Column="0" Margin="5" Text="{Binding ElementName=ValueSlider, Path=Value, Converter={StaticResource Linear_K5_B3}, UpdateSourceTrigger=PropertyChanged}"/>
                     <Slider Grid.Column="1" Margin="5" Maximum="100" Name="ValueSlider" ToolTip="{Binding Path=Value, RelativeSource={RelativeSource Mode=Self}}"/>
                 </Grid>
             </Grid>

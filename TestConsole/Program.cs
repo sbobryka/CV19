@@ -55,16 +55,16 @@ namespace TestConsole
 
         static void Main(string[] args)
         {
-            //using (HttpClient httpClient = new HttpClient())
-            //{
-            //    //HttpResponseMessage httpResponseMessage = httpClient.GetAsync(dataUrl).Result;
-            //    //string result = httpResponseMessage.Content.ReadAsStringAsync().Result;
-            //    string result = httpClient.GetStringAsync(dataUrl).Result;
-            //    Console.WriteLine(result);
-            //}
+            using (HttpClient httpClient = new HttpClient())
+            {
+                //HttpResponseMessage httpResponseMessage = httpClient.GetAsync(dataUrl).Result;
+                //string result = httpResponseMessage.Content.ReadAsStringAsync().Result;
+                string result = httpClient.GetStringAsync(dataUrl).Result;
+                Console.WriteLine(result);
+            }
 
-            //foreach (var line in GetDataLines())
-            //    Console.WriteLine(line);
+            foreach (var line in GetDataLines())
+                Console.WriteLine(line);
 
             //var dates = GetDates();
             //Console.WriteLine(string.Join("\r\n", dates));
