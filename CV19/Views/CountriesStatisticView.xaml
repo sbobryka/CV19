@@ -7,13 +7,15 @@
              xmlns:vm="clr-namespace:CV19.ViewModels"
              xmlns:m="clr-namespace:CV19.Models"
              xmlns:c="clr-namespace:CV19.Converters"
-             mc:Ignorable="d" 
+             xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+             mc:Ignorable="d"
              d:DataContext="{d:DesignInstance vm:CountriesStatisticViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
+        <sys:Double x:Key="Value3">3</sys:Double>
         <c:LocationPointToStr x:Key="LocationConverter"/>
         <c:Ratio K="2" x:Key="Ratio2"/>
-        <c:Linear K="5" B="3" x:Key="Linear_K5_B3"/>
+        <c:Linear K="5" B="{StaticResource Value3}" x:Key="Linear_K5_B3"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
