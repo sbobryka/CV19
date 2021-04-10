@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
-using System.Windows.Media;
+using System.Windows;
 
 namespace CV19.Converters
 {
-    internal class ToBrush : MultiConverter
+    internal class ToRGBString : MultiConverter
     {
         public override object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values.Length != 3) throw new ArgumentOutOfRangeException("Неверное количество элементов массива");
+            if (values?.Length != 3) throw new ArgumentOutOfRangeException("Неверное количество элементов массива");
 
             if (values[0] == unSet || values[1] == unSet || values[2] == unSet) return null;
 
@@ -19,9 +19,7 @@ namespace CV19.Converters
             RGB[1] = System.Convert.ToByte(values[1]);
             RGB[2] = System.Convert.ToByte(values[2]);
 
-            var color = Color.FromRgb(RGB[0], RGB[1], RGB[2]);
-            var brush = new SolidColorBrush(color);
-            return brush;
+            return $"R:{RGB[0]} G:{RGB[1]} B:{RGB[2]}";
         }
     }
 }

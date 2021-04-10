@@ -25,6 +25,7 @@
             </c:Composite.Second>
         </c:Composite>
         <c:ToBrush x:Key="BrushConverter"/>
+        <c:ToRGBString x:Key="RGBStringConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -62,8 +63,8 @@
                         </Grid.ColumnDefinitions>
                         <!--<TextBox Grid.Column="0" Margin="5" Text="{Binding ElementName=ValueSlider, Path=Value, Converter={StaticResource Ratio2}, UpdateSourceTrigger=PropertyChanged}"/>-->
                         <!--<TextBlock Text="{Binding ElementName=ValueSlider, Path=Value, Converter={StaticResource Ratio2}, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center" VerticalAlignment="Center"/>-->
-                        <TextBox Grid.Column="0" Margin="5" Text="{Binding ElementName=ValueSlider, Path=Value, Converter={StaticResource CompositeConverter}, UpdateSourceTrigger=PropertyChanged}"/>
-                        <Slider Grid.Column="1" Margin="5" Maximum="100" Name="ValueSlider" ToolTip="{Binding Path=Value, RelativeSource={RelativeSource Mode=Self}}"/>
+                        <Slider Grid.Column="1" Margin="5" Value="5" Maximum="100" Name="ValueSlider" ToolTip="{Binding Path=Value, RelativeSource={RelativeSource Mode=Self}}"/>
+                        <TextBox Grid.Column="0" Margin="5" Text="{Binding ElementName=ValueSlider, Path=Value, Converter={StaticResource Ratio2}, UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
                 </Grid>
                 <Grid>
@@ -73,10 +74,17 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Slider Grid.Row="1" x:Name="RedSlider" Maximum="255" Margin="5"/>
-                    <Slider Grid.Row="2" x:Name="GreenSlider" Maximum="255" Margin="5"/>
-                    <Slider Grid.Row="3" x:Name="BlueSlider" Maximum="255" Margin="5"/>
-                    <TextBlock Grid.Row="0" Text="Color" FontSize="30" TextAlignment="Center" FontWeight="Bold">
+                    <Slider Grid.Row="1" x:Name="RedSlider" Maximum="255" Margin="5" Value="75"/>
+                    <Slider Grid.Row="2" x:Name="GreenSlider" Maximum="255" Margin="5" Value="125"/>
+                    <Slider Grid.Row="3" x:Name="BlueSlider" Maximum="255" Margin="5" Value="200"/>
+                    <TextBlock Grid.Row="0" FontSize="30" TextAlignment="Center" FontWeight="Bold">
+                        <TextBlock.Text>
+                            <MultiBinding Converter="{StaticResource RGBStringConverter}">
+                                <Binding ElementName="RedSlider" Path="Value"/>
+                                <Binding ElementName="GreenSlider" Path="Value"/>
+                                <Binding ElementName="BlueSlider" Path="Value"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
                         <TextBlock.Foreground>
                             <MultiBinding Converter="{StaticResource BrushConverter}">
                                 <Binding ElementName="RedSlider" Path="Value"/>
