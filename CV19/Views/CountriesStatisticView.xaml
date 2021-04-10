@@ -16,6 +16,14 @@
         <c:LocationPointToStr x:Key="LocationConverter"/>
         <c:Ratio K="2" x:Key="Ratio2"/>
         <c:Linear K="5" B="{StaticResource Value3}" x:Key="Linear_K5_B3"/>
+        <c:Composite x:Key="CompositeConverter">
+            <c:Composite.First>
+                <c:Linear K="2"/>
+            </c:Composite.First>
+            <c:Composite.Second>
+                <c:Linear B="5"/>
+            </c:Composite.Second>
+        </c:Composite>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -52,7 +60,7 @@
                     </Grid.ColumnDefinitions>
                     <!--<TextBox Grid.Column="0" Margin="5" Text="{Binding ElementName=ValueSlider, Path=Value, Converter={StaticResource Ratio2}, UpdateSourceTrigger=PropertyChanged}"/>-->
                     <!--<TextBlock Text="{Binding ElementName=ValueSlider, Path=Value, Converter={StaticResource Ratio2}, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center" VerticalAlignment="Center"/>-->
-                    <TextBox Grid.Column="0" Margin="5" Text="{Binding ElementName=ValueSlider, Path=Value, Converter={StaticResource Linear_K5_B3}, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Grid.Column="0" Margin="5" Text="{Binding ElementName=ValueSlider, Path=Value, Converter={StaticResource CompositeConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                     <Slider Grid.Column="1" Margin="5" Maximum="100" Name="ValueSlider" ToolTip="{Binding Path=Value, RelativeSource={RelativeSource Mode=Self}}"/>
                 </Grid>
             </Grid>
