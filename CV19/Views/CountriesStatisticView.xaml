@@ -9,6 +9,7 @@
              xmlns:c="clr-namespace:CV19.Converters"
              xmlns:common="clr-namespace:CV19.Common"
              xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+             xmlns:oxy="http://oxyplot.org/wpf"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance vm:CountriesStatisticViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -50,7 +51,14 @@
         </GroupBox>
         <GridSplitter VerticalAlignment="Stretch"/>
         <GroupBox Grid.Column="1" Header="Информация">
-            <StackPanel Orientation="Vertical">
+            <oxy:Plot>
+                <oxy:Plot.Axes>
+                    <oxy:LinearAxis Position="Left" Title="Количество" MajorGridlineStyle="Solid" MinorGridlineStyle="Dash"/>
+                    <oxy:DateTimeAxis Position="Bottom" Title="Дата" MajorGridlineStyle="Solid" MinorGridlineStyle="Dash"/>
+                </oxy:Plot.Axes>
+                <oxy:LineSeries StrokeThickness="2" Color="IndianRed" ItemsSource="{Binding Path=SelectedCountry.Counts}" DataFieldX="Date" DataFieldY="Count"/>
+            </oxy:Plot>
+            <!--<StackPanel Orientation="Vertical">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -62,8 +70,8 @@
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <!--<TextBox Grid.Column="0" Margin="5" Text="{Binding ElementName=ValueSlider, Path=Value, Converter={StaticResource Ratio2}, UpdateSourceTrigger=PropertyChanged}"/>-->
-                        <!--<TextBlock Text="{Binding ElementName=ValueSlider, Path=Value, Converter={StaticResource Ratio2}, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center" VerticalAlignment="Center"/>-->
+                        --><!--<TextBox Grid.Column="0" Margin="5" Text="{Binding ElementName=ValueSlider, Path=Value, Converter={StaticResource Ratio2}, UpdateSourceTrigger=PropertyChanged}"/>-->
+                        <!--<TextBlock Text="{Binding ElementName=ValueSlider, Path=Value, Converter={StaticResource Ratio2}, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center" VerticalAlignment="Center"/>--><!--
                         <Slider Grid.Column="1" Margin="5" Value="5" Maximum="100" Name="ValueSlider" ToolTip="{Binding Path=Value, RelativeSource={RelativeSource Mode=Self}}"/>
                         <TextBox Grid.Column="0" Margin="5" Text="{Binding ElementName=ValueSlider, Path=Value, Converter={StaticResource Ratio2}, UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
@@ -98,7 +106,7 @@
                 <Grid>
                     <ListBox ItemsSource="{common:StringToIntArray Str='1,2,3,4,5', Separator=','}"/>
                 </Grid>
-            </StackPanel>
+            </StackPanel>-->
         </GroupBox>
     </Grid>
 </UserControl>
