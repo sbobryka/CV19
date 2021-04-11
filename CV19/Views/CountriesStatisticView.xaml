@@ -7,6 +7,7 @@
              xmlns:vm="clr-namespace:CV19.ViewModels"
              xmlns:m="clr-namespace:CV19.Models"
              xmlns:c="clr-namespace:CV19.Converters"
+             xmlns:common="clr-namespace:CV19.Common"
              xmlns:sys="clr-namespace:System;assembly=System.Runtime"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance vm:CountriesStatisticViewModel}"
@@ -93,6 +94,9 @@
                             </MultiBinding>
                         </TextBlock.Foreground>
                     </TextBlock>
+                </Grid>
+                <Grid>
+                    <ListBox ItemsSource="{common:StringToIntArray Str='1,2,3,4,5', Separator=','}"/>
                 </Grid>
             </StackPanel>
         </GroupBox>

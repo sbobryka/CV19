@@ -77,6 +77,22 @@
             <TextBox Width="150" Margin="5"/>
             <Button Style="{DynamicResource ButtonStyle1}" Content="Ok" Height="30" Width="100" Margin="5"/>
             <CheckBox HorizontalAlignment="Center"/>
+
+            <StackPanel>
+                <StackPanel.Resources>
+                    <local:ToString x:Key="ToStringConverter"/>
+                    <local:ToStringMulti x:Key="ToStringMultiConverter"/>
+                </StackPanel.Resources>
+                <!--<TextBlock Text="{Binding ElementName=Slider, Path=Value, Converter={StaticResource ToStringConverter}}"/>-->
+                <TextBlock>
+                    <TextBlock.Text>
+                        <MultiBinding Converter="{StaticResource ToStringMultiConverter}">
+                            <Binding ElementName="Slider" Path="Value"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <Slider x:Name="Slider" Value="3"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>
