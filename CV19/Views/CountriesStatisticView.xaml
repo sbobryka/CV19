@@ -10,6 +10,7 @@
              xmlns:common="clr-namespace:CV19.Common"
              xmlns:sys="clr-namespace:System;assembly=System.Runtime"
              xmlns:oxy="http://oxyplot.org/wpf"
+             xmlns:map="clr-namespace:MapControl;assembly=MapControl.WPF"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance vm:CountriesStatisticViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -28,6 +29,7 @@
         </c:Composite>
         <c:ToBrush x:Key="BrushConverter"/>
         <c:ToRGBString x:Key="RGBStringConverter"/>
+        <c:PointToMapLocation x:Key="PointToMapLocationConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -51,13 +53,24 @@
         </GroupBox>
         <GridSplitter VerticalAlignment="Stretch"/>
         <GroupBox Grid.Column="1" Header="Информация">
-            <oxy:Plot>
-                <oxy:Plot.Axes>
-                    <oxy:LinearAxis Position="Left" Title="Количество" MajorGridlineStyle="Solid" MinorGridlineStyle="Dash"/>
-                    <oxy:DateTimeAxis Position="Bottom" Title="Дата" MajorGridlineStyle="Solid" MinorGridlineStyle="Dash"/>
-                </oxy:Plot.Axes>
-                <oxy:LineSeries StrokeThickness="2" Color="IndianRed" ItemsSource="{Binding Path=SelectedCountry.Counts}" DataFieldX="Date" DataFieldY="Count"/>
-            </oxy:Plot>
+            <UniformGrid Rows="2">
+                <oxy:Plot>
+                    <oxy:Plot.Axes>
+                        <oxy:LinearAxis Position="Left" Title="Количество" MajorGridlineStyle="Solid" MinorGridlineStyle="Dash"/>
+                        <oxy:DateTimeAxis Position="Bottom" Title="Дата" MajorGridlineStyle="Solid" MinorGridlineStyle="Dash"/>
+                    </oxy:Plot.Axes>
+                    <oxy:LineSeries StrokeThickness="2" Color="IndianRed" ItemsSource="{Binding Path=SelectedCountry.Counts}" DataFieldX="Date" DataFieldY="Count"/>
+                </oxy:Plot>
+                <map:Map ZoomLevel="4" MaxZoomLevel="5" MinZoomLevel="3" Center="{Binding Path=SelectedCountry.Location, Converter={StaticResource PointToMapLocationConverter}}">
+                    <map:MapScale Margin="4" Opacity="1" Background="Transparent" VerticalAlignment="Bottom"/>
+                    <map:MapGraticule Opacity="0.5" Background="Transparent"/>
+                    <map:Map.MapLayer>
+                        <!--<map:MapTileLayer TileSource=" http://tile.stamen.com/tonner-lite/{z}/{x}/{y}.png" Panel.ZIndex="1"/>-->
+                        <map:MapTileLayer TileSource="https://{c}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png"/>
+                    </map:Map.MapLayer>
+                </map:Map>
+            </UniformGrid>
+
             <!--<StackPanel Orientation="Vertical">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -70,8 +83,10 @@
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        --><!--<TextBox Grid.Column="0" Margin="5" Text="{Binding ElementName=ValueSlider, Path=Value, Converter={StaticResource Ratio2}, UpdateSourceTrigger=PropertyChanged}"/>-->
-                        <!--<TextBlock Text="{Binding ElementName=ValueSlider, Path=Value, Converter={StaticResource Ratio2}, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center" VerticalAlignment="Center"/>--><!--
+                        -->
+            <!--<TextBox Grid.Column="0" Margin="5" Text="{Binding ElementName=ValueSlider, Path=Value, Converter={StaticResource Ratio2}, UpdateSourceTrigger=PropertyChanged}"/>-->
+            <!--<TextBlock Text="{Binding ElementName=ValueSlider, Path=Value, Converter={StaticResource Ratio2}, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center" VerticalAlignment="Center"/>-->
+            <!--
                         <Slider Grid.Column="1" Margin="5" Value="5" Maximum="100" Name="ValueSlider" ToolTip="{Binding Path=Value, RelativeSource={RelativeSource Mode=Self}}"/>
                         <TextBox Grid.Column="0" Margin="5" Text="{Binding ElementName=ValueSlider, Path=Value, Converter={StaticResource Ratio2}, UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
